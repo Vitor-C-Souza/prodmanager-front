@@ -15,7 +15,7 @@ export const rawMaterialService = {
         return data;
     },
     updateStock: async (id: string, quantity: number): Promise<void> => {
-        await api.put(`/raw-materials/${id}/stock`, { quantity });
+        await api.patch(`/raw-materials/${id}/stock`, { quantity });
     },
     deleteMaterial: async (id: string): Promise<void> => {
         await api.delete(`/raw-materials/${id}`);

@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Products from './pages/product/Product';
 import RawMaterials from './pages/rawMaterial/RawMaterials';
+import ProductionDashboard from './pages/ProductionDashboard/ProductionDashboard';
 
 
 const MainLayout = () => (
@@ -15,13 +16,6 @@ const MainLayout = () => (
   </>
 );
 
-const Dashboard = () => (
-  <div>
-    <h1 className="text-2xl font-bold text-slate-800">Production Dashboard</h1>
-    <p className="text-slate-600 mt-2">Welcome back! Here is your production overview.</p>
-  </div>
-);
-
 function App() {
   return (
     <BrowserRouter>
@@ -31,7 +25,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<ProductionDashboard />} />
             <Route path="/raw-materials" element={<RawMaterials />} />
             <Route path="/products" element={<Products />} />
           </Route>
