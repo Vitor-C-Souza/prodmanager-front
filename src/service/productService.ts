@@ -20,4 +20,17 @@ export const productService = {
   deleteProduct: async (id: string): Promise<void> => {
     await api.delete(`/products/${id}`);
   },
+
+  addMaterialToProduct: async (productId: string, rawMaterialId: string, quantity: number) => {
+    const payload = {
+      rawMaterialId,
+      requiredQuantity: quantity
+    };
+    const { data } = await api.post(`/products/${productId}/materials`, payload);
+    return data;
+  },
+
+  removeMaterialFromProduct: async (productId: string, relationshipId: string): Promise<void> => {
+    await api.delete(`/products/${productId}/materials/${relationshipId}`);
+  },
 };

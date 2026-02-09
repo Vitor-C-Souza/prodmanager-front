@@ -7,18 +7,31 @@ import ConfirmModal from '../../components/common/ConfirmModal';
 import ProductHeader from './components/ProductHeader';
 import ProductList from './components/ProductList';
 import { usePageTitle } from '../../hooks/usePageTitle';
+import type { RawMaterial } from '../../types/rawMaterial';
+import { rawMaterialService } from '../../service/rawMaterialService';
+import CompositionModal from './components/CompositionModal';
 
 const Products: React.FC = () => {
     usePageTitle('Products');
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isActionLoading, setIsActionLoading] = useState(false);
-    const [modals, setModals] = useState({ form: false, confirm: false });
     const [isEditing, setIsEditing] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [formData, setFormData] = useState<CreateProductRequest>({ name: '', code: '', price: 0 });
+    const [allMaterials, setAllMaterials] = useState<RawMaterial[]>([]);
+    const [modals, setModals] = useState({ form: false, confirm: false, composition: false });
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     useEffect(() => { fetchProducts(); }, []);
+
+    useEffect(() => {
+        const loadMaterials = async () => {
+            const data = await rawMaterialService.getMaterials();
+            setAllMaterials(data);
+        };
+        loadMaterials();
+    }, []);
 
     const fetchProducts = async () => {
         try {
@@ -33,6 +46,11 @@ const Products: React.FC = () => {
         setIsEditing(false);
         setFormData({ name: '', code: '', price: 0 });
         setModals({ ...modals, form: true });
+    };
+
+    const handleOpenComposition = (product: Product) => {
+        setSelectedProduct(product);
+        setModals({ ...modals, composition: true });
     };
 
     const handleOpenEdit = (product: Product) => {
@@ -80,7 +98,8 @@ const Products: React.FC = () => {
                     isLoading={isLoading}
                     isActionLoading={isActionLoading}
                     onEdit={handleOpenEdit}
-                    onDelete={(id) => { setSelectedId(id); setModals({ ...modals, confirm: true }); }}
+                    onDelete={handleConfirmDelete}
+                    onManageComposition={handleOpenComposition}
                 />
             )}
 
@@ -101,6 +120,15 @@ const Products: React.FC = () => {
                 onConfirm={handleConfirmDelete}
                 title="Delete Product?"
                 message="This action is permanent and cannot be undone."
+            />
+
+            <CompositionModal
+                isOpen={modals.composition}
+                product={products.find(p => p.id === selectedProduct?.id) || selectedProduct}
+                materials={allMaterials}
+                onClose={() => setModals({ ...modals, composition: false })}
+                isLoading={isLoading}
+                onUpdate={fetchProducts}
             />
         </div>
     );

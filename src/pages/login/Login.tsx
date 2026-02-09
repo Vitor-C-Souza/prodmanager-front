@@ -17,13 +17,10 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(`Starting ${isLogin ? 'Login' : 'Registration'} flow...`);
 
     try {
       if (isLogin) {
         const data = await authService.login({ email, password });
-        console.log('Login successful, receiving token:', data.token);
-
         dispatch(setCredentials(data));
         navigate('/dashboard');
       } else {
@@ -34,12 +31,10 @@ const Login: React.FC = () => {
           role: 'ADMIN'
         });
 
-        console.log('Registration successful');
         alert('Account created successfully! Please sign in.');
         setIsLogin(true);
       }
     } catch (error: any) {
-      console.error('Authentication error details:', error.response?.data || error.message);
       alert(error.response?.data?.message || 'An error occurred. Please check your connection or credentials.');
     } finally {
       setIsLoading(false);
@@ -126,7 +121,6 @@ const Login: React.FC = () => {
               type="button"
               onClick={() => {
                 setIsLogin(!isLogin);
-                console.log('Switched to', !isLogin ? 'Register' : 'Login', 'mode');
               }}
               className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors"
             >
