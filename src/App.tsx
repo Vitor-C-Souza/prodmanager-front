@@ -1,10 +1,22 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Login from './pages/login/Login';
+import Navbar from './components/layout/Navbar';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
-// Temporary Dashboard for testing the redirect
+
+const MainLayout = () => (
+  <>
+    <Navbar />
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <Outlet />
+    </main>
+  </>
+);
+
 const Dashboard = () => (
-  <div className="p-8">
-    <h1 className="text-2xl font-bold">Dashboard - Login Successful!</h1>
+  <div>
+    <h1 className="text-2xl font-bold text-slate-800">Production Dashboard</h1>
+    <p className="text-slate-600 mt-2">Welcome back! Here is your production overview.</p>
   </div>
 );
 
@@ -13,8 +25,18 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+
+
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            {/* <Route path="/materials" element={<Materials />} />
+            <Route path="/products" element={<Products />} /> */}
+          </Route>
+        </Route>
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );
