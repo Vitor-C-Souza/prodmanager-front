@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom
 import Login from './pages/login/Login';
 import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import Products from './pages/product/Product';
 
 
 const MainLayout = () => (
@@ -30,12 +31,10 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            {/* <Route path="/materials" element={<Materials />} />
-            <Route path="/products" element={<Products />} /> */}
+            {/* <Route path="/materials" element={<Materials />} /> */}
+            <Route path="/products" element={<Products />} />
           </Route>
         </Route>
-
-        {/* Fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
