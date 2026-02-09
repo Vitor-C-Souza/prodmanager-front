@@ -3,6 +3,7 @@ import Login from './pages/login/Login';
 import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Products from './pages/product/Product';
+import RawMaterials from './pages/rawMaterial/RawMaterials';
 
 
 const MainLayout = () => (
@@ -31,7 +32,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            {/* <Route path="/materials" element={<Materials />} /> */}
+            <Route path="/raw-materials" element={<RawMaterials />} />
             <Route path="/products" element={<Products />} />
           </Route>
         </Route>

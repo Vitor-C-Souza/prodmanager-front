@@ -20,12 +20,11 @@ const Navbar: React.FC = () => {
         navigate('/login');
     };
 
-    // Helper to check active route
     const isActive = (path: string) => location.pathname === path;
 
     const navItems = [
         { label: 'Production', path: '/dashboard', icon: <TrendingUp size={18} /> },
-        { label: 'Materials', path: '/materials', icon: <Box size={18} /> },
+        { label: 'Materials', path: '/raw-materials', icon: <Box size={18} /> },
         { label: 'Products', path: '/products', icon: <Package size={18} /> },
     ];
 
