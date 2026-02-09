@@ -6,8 +6,10 @@ import ProductModal from '../../components/product/ProductModal';
 import ConfirmModal from '../../components/common/ConfirmModal';
 import ProductHeader from './components/ProductHeader';
 import ProductList from './components/ProductList';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 const Products: React.FC = () => {
+    usePageTitle('Products');
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isActionLoading, setIsActionLoading] = useState(false);
