@@ -1,61 +1,61 @@
 # ProdManager Front
 
-Sistema de gerenciamento de produção e materiais bruto com interface moderna e responsiva.
+Production and raw materials management system with modern and responsive interface.
 
-## 📋 Sobre
+## 📋 About
 
-ProdManager é uma aplicação web desenvolvida para gerenciar:
-- **Produtos**: Criar, editar e visualizar produtos com suas composições
-- **Materiais Brutos**: Gerenciar matérias-primas utilizadas na produção
-- **Dashboard de Produção**: Visualizar estatísticas e simulações de produção em tempo real
+ProdManager is a web application developed to manage:
+- **Products**: Create, edit and view products with their compositions
+- **Raw Materials**: Manage raw materials used in production
+- **Production Dashboard**: View production statistics and simulations in real-time
 
-A aplicação possui autenticação segura e interface intuitiva para facilitar o uso.
+The application has secure authentication and an intuitive interface for easy use.
 
-## 🚀 Tecnologias
+## 🚀 Technologies
 
-- **React** 19 - Biblioteca JavaScript para construção da interface
-- **TypeScript** - Tipagem estática para melhor qualidade de código
-- **Vite** - Build tool moderno e rápido
-- **React Router DOM** - Roteamento de páginas
-- **Redux Toolkit** - Gerenciamento de estado global
-- **Tailwind CSS** - Framework de estilização utility-first
-- **Axios** - Cliente HTTP para comunicação com API
-- **Lucide React** - Biblioteca de ícones SVG
-- **ESLint** - Análise estática de código
+- **React** 19 - JavaScript library for building user interfaces
+- **TypeScript** - Static typing for better code quality
+- **Vite** - Modern and fast build tool
+- **React Router DOM** - Page routing
+- **Redux Toolkit** - Global state management
+- **Tailwind CSS** - Utility-first styling framework
+- **Axios** - HTTP client for API communication
+- **Lucide React** - SVG icon library
+- **ESLint** - Static code analysis
 
-## 📦 Instalação
+## 📦 Installation
 
-### Pré-requisitos
+### Prerequisites
 - Node.js 18+ 
-- npm ou yarn
+- npm or yarn
 
-### Passos
+### Steps
 
-1. Clone o repositório:
+1. Clone the repository:
 ```bash
-git clone <seu-repositório>
+git clone <your-repository>
 cd prodmanager-front
 ```
 
-2. Instale as dependências:
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-## 🎯 Como Executar
+## 🎯 How to Run
 
-### Modo Desenvolvimento
+### Development Mode
 ```bash
 npm run dev
 ```
-A aplicação estará disponível em `http://localhost:5173`
+The application will be available at `http://localhost:5173`
 
-### Build para Produção
+### Build for Production
 ```bash
 npm run build
 ```
 
-### Preview da Build
+### Preview Build
 ```bash
 npm run preview
 ```
@@ -65,99 +65,99 @@ npm run preview
 npm run lint
 ```
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 src/
-├── assets/                 # Recursos estáticos
-├── components/             # Componentes reutilizáveis
-│   ├── auth/              # Componentes de autenticação
-│   ├── common/            # Componentes genéricos
-│   ├── layout/            # Componentes de layout
-│   ├── product/           # Componentes de produtos
-│   └── rawMaterial/       # Componentes de materiais brutos
-├── hooks/                 # Hooks customizados
-├── pages/                 # Páginas da aplicação
-│   ├── login/             # Página de login
-│   ├── product/           # Gerenciamento de produtos
-│   ├── rawMaterial/       # Gerenciamento de materiais
-│   └── ProductionDashboard/ # Dashboard de produção
-├── service/               # Serviços de API
-│   ├── api.ts            # Configuração do Axios
-│   ├── authService.ts    # Autenticação
-│   ├── productService.ts # Gestão de produtos
-│   ├── productionService.ts # Produção
-│   └── rawMaterialService.ts # Materiais brutos
-├── store/                 # Configuração Redux
-│   └── slices/           # Slices Redux
-├── types/                 # Definições TypeScript
+├── assets/                 # Static resources
+├── components/             # Reusable components
+│   ├── auth/              # Authentication components
+│   ├── common/            # Generic components
+│   ├── layout/            # Layout components
+│   ├── product/           # Product components
+│   └── rawMaterial/       # Raw material components
+├── hooks/                 # Custom hooks
+├── pages/                 # Application pages
+│   ├── login/             # Login page
+│   ├── product/           # Product management
+│   ├── rawMaterial/       # Material management
+│   └── ProductionDashboard/ # Production dashboard
+├── service/               # API services
+│   ├── api.ts            # Axios configuration
+│   ├── authService.ts    # Authentication
+│   ├── productService.ts # Product management
+│   ├── productionService.ts # Production
+│   └── rawMaterialService.ts # Raw materials
+├── store/                 # Redux configuration
+│   └── slices/           # Redux slices
+├── types/                 # TypeScript definitions
 │   ├── auth.ts
 │   ├── product.ts
 │   ├── productionSimulation.ts
 │   └── rawMaterial.ts
-├── App.tsx               # Componente raiz
-└── main.tsx              # Entrada da aplicação
+├── App.tsx               # Root component
+└── main.tsx              # Application entry
 ```
 
-## 🔐 Autenticação
+## 🔐 Authentication
 
-A aplicação utiliza um sistema de autenticação com rotas protegidas:
-- Usuários não autenticados são redirecionados para a página de login
-- O token de autenticação é armazenado no Redux
-- A rota protegida valida a autenticação antes de permitir acesso
+The application uses an authentication system with protected routes:
+- Unauthenticated users are redirected to the login page
+- Authentication token is stored in Redux
+- Protected routes validate authentication before allowing access
 
-## 🎨 Estilização
+## 🎨 Styling
 
-O projeto utiliza **Tailwind CSS** para estilização responsiva. As configurações estão em:
-- `tailwind.config.js` - Configuração do Tailwind
-- `postcss.config.js` - Configuração do PostCSS
-- Arquivos CSS em `src/` para estilos globais
+The project uses **Tailwind CSS** for responsive styling. Configurations are in:
+- `tailwind.config.js` - Tailwind configuration
+- `postcss.config.js` - PostCSS configuration
+- CSS files in `src/` for global styles
 
-## 🔧 Configuração
+## 🔧 Configuration
 
-### Variáveis de Ambiente
+### Environment Variables
 
-Crie um arquivo `.env` na raiz do projeto:
+Create a `.env` file at the project root:
 ```env
-VITE_API_BASE_URL=http://seu-servidor-api
+VITE_API_BASE_URL=http://your-api-server
 ```
 
 ### TypeScript
 
-Configurado em:
-- `tsconfig.json` - Configuração base
-- `tsconfig.app.json` - Configuração para aplicação
-- `tsconfig.node.json` - Configuração para ferramentas
+Configured in:
+- `tsconfig.json` - Base configuration
+- `tsconfig.app.json` - Application configuration
+- `tsconfig.node.json` - Tools configuration
 
 ### ESLint
 
-Configurado em `eslint.config.js` para manter a qualidade do código.
+Configured in `eslint.config.js` to maintain code quality.
 
-## 🔌 Serviços de API
+## 🔌 API Services
 
 ### authService
-- `login(credentials)` - Autentica usuário e retorna token
-- `register(data)` - Registra novo usuário
+- `login(credentials)` - Authenticates user and returns token
+- `register(data)` - Registers a new user
 
 ### productService
-- `create(product)` - Cria novo produto
-- `list()` - Obtém lista de todos os produtos
-- `update(id, product)` - Atualiza dados do produto
-- `delete(id)` - Deleta um produto
-- `addComposition(productId, material)` - Adiciona material à composição
-- `removeComposition(productId, materialId)` - Remove material da composição
+- `create(product)` - Creates a new product
+- `list()` - Gets list of all products
+- `update(id, product)` - Updates product data
+- `delete(id)` - Deletes a product
+- `addComposition(productId, material)` - Adds material to composition
+- `removeComposition(productId, materialId)` - Removes material from composition
 
 ### rawMaterialService
-- `create(material)` - Cria novo material
-- `list()` - Obtém lista de todos os materiais
-- `update(id, material)` - Atualiza material
-- `delete(id)` - Deleta um material
+- `create(material)` - Creates a new material
+- `list()` - Gets list of all materials
+- `update(id, material)` - Updates material
+- `delete(id)` - Deletes a material
 
 ### productionService
-- `simulate()` - Simula cenários de produção
-- `getReport()` - Obtém relatório consolidado de produção (contagem, unidades, receita)
+- `simulate()` - Simulates production scenarios
+- `getReport()` - Gets consolidated production report (count, units, revenue)
 
-## 📊 Tipos de Dados
+## 📊 Data Types
 
 ### Product
 ```typescript
@@ -173,9 +173,9 @@ interface Product {
 ### ProductionReport
 ```typescript
 interface ProductionReport {
-  productsCount: number;      // Total de produtos
-  totalUnits: number;         // Total de unidades produzidas
-  totalRevenue: number;       // Receita total
+  productsCount: number;      // Total products
+  totalUnits: number;         // Total units produced
+  totalRevenue: number;       // Total revenue
 }
 ```
 
@@ -189,66 +189,85 @@ interface RawMaterial {
 }
 ```
 
-## 📱 Funcionalidades Principais
+## 📱 Main Features
 
 ### Login
-- Autenticação segura com validação de credenciais
-- Armazenamento seguro de token no Redux
-- Redirecionamento automático para dashboard após autenticação
+- Secure authentication with credential validation
+- Secure token storage in Redux
+- Automatic redirect to dashboard after authentication
 
-### Dashboard de Produção
-- **Estatísticas em Tempo Real**: Visualização de produtos, unidades e receita total
-- **Simulação de Cenários**: Simule diferentes cenários de produção
-- **Relatórios de Produção**: Acesse dados consolidados de produtividade e receita
-- Cards informativos com métricas principais
-- Integração com dados atualizados de produtos e materiais
+### Production Dashboard
+- **Real-time Statistics**: View products, units and total revenue
+- **Scenario Simulation**: Simulate different production scenarios
+- **Production Reports**: Access consolidated productivity and revenue data
+- Informative cards with key metrics
+- Integration with updated product and material data
 
-### Gerenciamento de Produtos
-- **Listagem Completa**: Visualize todos os produtos cadastrados
-- **Criar Produtos**: Interface intuitiva para adicionar novos produtos
-- **Editar Produtos**: Modifique informações de produtos existentes
-- **Gerenciar Composição**: 
-  - Visualizar materiais brutos utilizados em cada produto
-  - Adicionar materiais à composição do produto
-  - Definir quantidade necessária de cada material
-  - Remover materiais da composição
-  - Modal interativo com validações em tempo real
-- **Excluir Produtos**: Remove produtos do sistema com confirmação
-- Suporte a múltiplos materiais por produto
+### Product Management
+- **Complete Listing**: View all registered products
+- **Create Products**: Intuitive interface to add new products
+- **Edit Products**: Modify existing product information
+- **Manage Composition**: 
+  - View raw materials used in each product
+  - Add materials to product composition
+  - Set required quantity for each material
+  - Remove materials from composition
+  - Interactive modal with real-time validations
+- **Delete Products**: Remove products from system with confirmation
+- Support for multiple materials per product
 
-### Gerenciamento de Materiais Brutos
-- **Listagem Completa**: Visualize todos os materiais brutos disponíveis
-- **Adicionar Materiais**: Cadastre novos materiais com facilidade
-- **Atualizar Informações**: Modifique dados de materiais existentes
-- **Remover Materiais**: Delete materiais do inventário
-- **Rastreamento**: Acompanhe disponibilidade e uso em produtos
-- Validação de materiais utilizados em composições
+### Raw Materials Management
+- **Complete Listing**: View all available raw materials
+- **Add Materials**: Register new materials with ease
+- **Update Information**: Modify existing material data
+- **Remove Materials**: Delete materials from inventory
+- **Tracking**: Monitor availability and usage in products
+- Validation of materials used in compositions
 
-### Relatórios de Produção
-- **Dados Consolidados**: 
-  - Contagem total de produtos
-  - Total de unidades produzidas
-  - Receita total gerada
-- **Integração com Dashboard**: Dados automaticamente sincronizados
-- **Endpoint Dedicado**: `/production/report` para obtenção de relatórios
+### Production Reports
+- **Consolidated Data**: 
+  - Total product count
+  - Total units produced
+  - Total revenue generated
+- **Dashboard Integration**: Data automatically synchronized
+- **Dedicated Endpoint**: `/production/report` for reports retrieval
 
-## 🤝 Contribuindo
+## ✅ Requirements Met (Test Criteria)
 
-Para contribuir com o projeto:
+This application was developed to fully comply with the practical test of stock control and industrial production.
 
-1. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-2. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-3. Push para a branch (`git push origin feature/AmazingFeature`)
-4. Abra um Pull Request
+### Functional Requirements
+- **RF001/RF005 (Products)**: Complete CRUD with code, name and value storage.
+- **RF002/RF006 (Raw Materials)**: Complete CRUD with code, name and stock quantity control.
+- **RF003/RF007 (Association)**: Integrated interface in product registration to associate inputs and required quantities through `CompositionModal`.
+- **RF004/RF008 (Production Query)**: Dedicated dashboard that lists which products can be manufactured, possible quantities (`maxProduction`) and total value obtained (`totalRevenue`).
 
-## 📄 Licença
+### Mandatory Business Logic
+- **Value Prioritization**: The system displays and suggests production prioritizing higher value products, optimizing the use of limited raw materials in stock.
 
-Este projeto está sob licença MIT. Veja o arquivo LICENSE para mais detalhes.
+### Non-Functional Requirements
+- **RNF001/RNF003**: Responsive web interface optimized for Chrome, Firefox and Edge using Tailwind CSS.
+- **RNF002**: API-based architecture, completely decoupling Front-end from Back-end.
+- **RNF006**: Developed in **React** and **Redux Toolkit**, as suggested for Autoflex technologies.
+- **RNF007**: All coding (components, types, services and interface) performed strictly in **English**.
 
-## 📞 Contato
+## 🤝 Contributing
 
-Para dúvidas ou sugestões, entre em contato através dos issues do repositório.
+To contribute to the project:
+
+1. Create a branch for your feature (`git checkout -b feature/AmazingFeature`)
+2. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+3. Push to the branch (`git push origin feature/AmazingFeature`)
+4. Open a Pull Request
+
+## 📄 License
+
+This project is under MIT license. See the LICENSE file for more details.
+
+## 📞 Contact
+
+For questions or suggestions, get in touch through the repository issues.
 
 ---
 
-**Desenvolvido com ❤️**
+**Developed with ❤️**
