@@ -1,73 +1,181 @@
-# React + TypeScript + Vite
+# ProdManager Front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema de gerenciamento de produção e materiais bruto com interface moderna e responsiva.
 
-Currently, two official plugins are available:
+## 📋 Sobre
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ProdManager é uma aplicação web desenvolvida para gerenciar:
+- **Produtos**: Criar, editar e visualizar produtos com suas composições
+- **Materiais Brutos**: Gerenciar matérias-primas utilizadas na produção
+- **Dashboard de Produção**: Visualizar estatísticas e simulações de produção em tempo real
 
-## React Compiler
+A aplicação possui autenticação segura e interface intuitiva para facilitar o uso.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tecnologias
 
-## Expanding the ESLint configuration
+- **React** 19 - Biblioteca JavaScript para construção da interface
+- **TypeScript** - Tipagem estática para melhor qualidade de código
+- **Vite** - Build tool moderno e rápido
+- **React Router DOM** - Roteamento de páginas
+- **Redux Toolkit** - Gerenciamento de estado global
+- **Tailwind CSS** - Framework de estilização utility-first
+- **Axios** - Cliente HTTP para comunicação com API
+- **Lucide React** - Biblioteca de ícones SVG
+- **ESLint** - Análise estática de código
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Instalação
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Pré-requisitos
+- Node.js 18+ 
+- npm ou yarn
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Passos
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone o repositório:
+```bash
+git clone <seu-repositório>
+cd prodmanager-front
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Instale as dependências:
+```bash
+npm install
 ```
+
+## 🎯 Como Executar
+
+### Modo Desenvolvimento
+```bash
+npm run dev
+```
+A aplicação estará disponível em `http://localhost:5173`
+
+### Build para Produção
+```bash
+npm run build
+```
+
+### Preview da Build
+```bash
+npm run preview
+```
+
+### Linting
+```bash
+npm run lint
+```
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── assets/                 # Recursos estáticos
+├── components/             # Componentes reutilizáveis
+│   ├── auth/              # Componentes de autenticação
+│   ├── common/            # Componentes genéricos
+│   ├── layout/            # Componentes de layout
+│   ├── product/           # Componentes de produtos
+│   └── rawMaterial/       # Componentes de materiais brutos
+├── hooks/                 # Hooks customizados
+├── pages/                 # Páginas da aplicação
+│   ├── login/             # Página de login
+│   ├── product/           # Gerenciamento de produtos
+│   ├── rawMaterial/       # Gerenciamento de materiais
+│   └── ProductionDashboard/ # Dashboard de produção
+├── service/               # Serviços de API
+│   ├── api.ts            # Configuração do Axios
+│   ├── authService.ts    # Autenticação
+│   ├── productService.ts # Gestão de produtos
+│   ├── productionService.ts # Produção
+│   └── rawMaterialService.ts # Materiais brutos
+├── store/                 # Configuração Redux
+│   └── slices/           # Slices Redux
+├── types/                 # Definições TypeScript
+│   ├── auth.ts
+│   ├── product.ts
+│   ├── productionSimulation.ts
+│   └── rawMaterial.ts
+├── App.tsx               # Componente raiz
+└── main.tsx              # Entrada da aplicação
+```
+
+## 🔐 Autenticação
+
+A aplicação utiliza um sistema de autenticação com rotas protegidas:
+- Usuários não autenticados são redirecionados para a página de login
+- O token de autenticação é armazenado no Redux
+- A rota protegida valida a autenticação antes de permitir acesso
+
+## 🎨 Estilização
+
+O projeto utiliza **Tailwind CSS** para estilização responsiva. As configurações estão em:
+- `tailwind.config.js` - Configuração do Tailwind
+- `postcss.config.js` - Configuração do PostCSS
+- Arquivos CSS em `src/` para estilos globais
+
+## 🔧 Configuração
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+```env
+VITE_API_BASE_URL=http://seu-servidor-api
+```
+
+### TypeScript
+
+Configurado em:
+- `tsconfig.json` - Configuração base
+- `tsconfig.app.json` - Configuração para aplicação
+- `tsconfig.node.json` - Configuração para ferramentas
+
+### ESLint
+
+Configurado em `eslint.config.js` para manter a qualidade do código.
+
+## 📱 Funcionalidades Principais
+
+### Login
+- Autenticação segura
+- Validação de credenciais
+- Redirecionamento automático para dashboard
+
+### Dashboard de Produção
+- Estatísticas de produção em tempo real
+- Simulação de cenários de produção
+- Cards com informações consolidadas
+
+### Gerenciamento de Produtos
+- Listagem de todos os produtos
+- Criar novo produto
+- Editar produto existente
+- Visualizar composição do produto
+- Excluir produtos
+
+### Gerenciamento de Materiais Brutos
+- Listagem de materiais
+- Adicionar novo material
+- Atualizar informações de material
+- Remover materiais
+- Rastreamento de disponibilidade
+
+## 🤝 Contribuindo
+
+Para contribuir com o projeto:
+
+1. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+2. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+3. Push para a branch (`git push origin feature/AmazingFeature`)
+4. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+## 📞 Contato
+
+Para dúvidas ou sugestões, entre em contato através dos issues do repositório.
+
+---
+
+**Desenvolvido com ❤️**
