@@ -47,12 +47,11 @@ const Navbar: React.FC = () => {
                                 key={item.path}
                                 to={item.path}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(item.path)
-                                        ? 'bg-blue-50 text-blue-600 shadow-sm'
-                                        : 'text-slate-600 hover:bg-slate-50'
+                                    ? 'bg-blue-50 text-blue-600 shadow-sm'
+                                    : 'text-slate-600 hover:bg-slate-50'
                                     }`}
                             >
                                 {item.icon}
-                                {/* O texto some em telas muito pequenas (xs) e volta no small (sm) */}
                                 <span className="hidden sm:inline">{item.label}</span>
                             </Link>
                         ))}

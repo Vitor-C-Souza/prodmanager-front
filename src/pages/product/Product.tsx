@@ -9,7 +9,8 @@ import ProductList from './components/ProductList';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import type { RawMaterial } from '../../types/rawMaterial';
 import { rawMaterialService } from '../../service/rawMaterialService';
-import CompositionModal from './components/CompositionModal';
+import CompositionModal from '../../components/product/CompositionModal';
+// import CompositionModal from './components/CompositionModal';
 
 const Products: React.FC = () => {
     usePageTitle('Products');

@@ -7,7 +7,7 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import type { ProductionSimulation } from '../../types/productionSimulation';
 
 const ProductionDashboard: React.FC = () => {
-    usePageTitle('Production Dashboard');
+    usePageTitle('Dashboard');
     const [simulations, setSimulations] = useState<ProductionSimulation[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
