@@ -41,28 +41,30 @@ const Navbar: React.FC = () => {
                             Production Manager
                         </span>
                     </div>
-                    <div className="hidden md:flex items-center gap-4">
+                    <div className="flex items-center gap-1 sm:gap-4">
                         {navItems.map((item) => (
                             <Link
                                 key={item.path}
                                 to={item.path}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isActive(item.path)
-                                    ? 'bg-blue-50 text-blue-600 shadow-sm'
-                                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(item.path)
+                                        ? 'bg-blue-50 text-blue-600 shadow-sm'
+                                        : 'text-slate-600 hover:bg-slate-50'
                                     }`}
                             >
                                 {item.icon}
-                                {item.label}
+                                {/* O texto some em telas muito pequenas (xs) e volta no small (sm) */}
+                                <span className="hidden sm:inline">{item.label}</span>
                             </Link>
                         ))}
 
-                        <div className="h-6 w-px bg-gray-200 mx-2" />
+                        <div className="h-6 w-px bg-gray-200 mx-1 sm:mx-2" />
+
                         <button
                             onClick={handleLogout}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
                             <LogOut size={18} />
-                            Logout
+                            <span className="hidden sm:inline">Logout</span>
                         </button>
                     </div>
                 </div>
