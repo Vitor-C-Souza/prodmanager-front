@@ -7,7 +7,7 @@ import MaterialHeader from './components/MaterialHeader';
 import MaterialList from './components/MaterialList';
 import MaterialEmptyState from './components/MaterialEmptyState';
 import ConfirmModal from '../../components/common/ConfirmModal';
-import MaterialModal from '../../components/rawMaterial/RawMaterialModal';
+import RawMaterialModal from '../../components/rawMaterial/RawMaterialModal';
 
 const RawMaterials: React.FC = () => {
     usePageTitle('Raw Materials');
@@ -98,7 +98,7 @@ const RawMaterials: React.FC = () => {
                 />
             )}
 
-            <MaterialModal
+            <RawMaterialModal
                 isOpen={modals.form}
                 isEditing={isEditing}
                 isLoading={isActionLoading}

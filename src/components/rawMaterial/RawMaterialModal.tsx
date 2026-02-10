@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Loader2, PlusCircle, MinusCircle, Package, Box } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Loader2, PlusCircle, MinusCircle, Package, Box, AlertCircle } from 'lucide-react';
 import type { CreateRawMaterialRequest } from '../../types/rawMaterial';
 
 interface RawMaterialModalProps {
@@ -13,24 +13,61 @@ interface RawMaterialModalProps {
     currentBalance?: number;
 }
 
-const MaterialModal: React.FC<RawMaterialModalProps> = ({
+const RawMaterialModal: React.FC<RawMaterialModalProps> = ({
     isOpen, onClose, onSubmit, formData, setFormData, isEditing, isLoading, currentBalance = 0
 }) => {
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+    useEffect(() => {
+        if (!isOpen) setErrors({});
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
+    const validateAndSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const newErrors: { [key: string]: string } = {};
+
+        if (!formData.name.trim()) {
+            newErrors.name = "Material name is required";
+        }
+
+        if (!isEditing && !formData.code.trim()) {
+            newErrors.code = "Material code is required";
+        }
+
+        if (isEditing) {
+            if (currentBalance + formData.stockQuantity < 0) {
+                newErrors.stockQuantity = `Insufficient stock. Max removal: ${currentBalance}`;
+            }
+        } else {
+            if (formData.stockQuantity < 0) {
+                newErrors.stockQuantity = "Initial quantity cannot be negative";
+            }
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        setErrors({});
+        onSubmit(e);
+    };
+
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 font-sans">
             <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
                 <div className="flex justify-between items-center p-8 border-b border-slate-100">
                     <h2 className="text-2xl font-bold text-slate-900">
                         {isEditing ? 'Adjust Inventory' : 'New Material'}
                     </h2>
-                    <button onClick={onClose} disabled={isLoading} className="text-slate-400 hover:text-slate-600 p-2 hover:bg-slate-50 rounded-full transition-all disabled:opacity-50">
+                    <button onClick={onClose} disabled={isLoading} className="text-slate-400 hover:text-slate-600 p-2 hover:bg-slate-50 rounded-full transition-all">
                         <X size={24} />
                     </button>
                 </div>
 
-                <form onSubmit={onSubmit} className="p-8 space-y-5">
+                <form onSubmit={validateAndSubmit} className="p-8 space-y-5">
                     {isEditing && (
                         <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 flex justify-between items-center">
                             <div>
@@ -45,22 +82,30 @@ const MaterialModal: React.FC<RawMaterialModalProps> = ({
                         <label className="block text-sm font-bold text-slate-700 mb-2">Material Name</label>
                         <input
                             disabled={isLoading}
-                            className="w-full border border-slate-200 rounded-xl p-3.5 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                            className={`w-full border rounded-xl p-3.5 outline-none transition-all ${errors.name ? 'border-red-500 ring-2 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
+                                }`}
                             value={formData.name}
-                            onChange={e => setFormData({ ...formData, name: e.target.value })}
-                            required
+                            onChange={e => {
+                                setFormData({ ...formData, name: e.target.value });
+                                if (errors.name) setErrors({ ...errors, name: '' });
+                            }}
                         />
+                        {errors.name && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium"><AlertCircle size={12} /> {errors.name}</p>}
                     </div>
 
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Material Code</label>
                         <input
                             disabled={isLoading || isEditing}
-                            className="w-full border border-slate-200 rounded-xl p-3.5 font-mono text-sm disabled:bg-slate-50"
+                            className={`w-full border rounded-xl p-3.5 font-mono text-sm outline-none transition-all ${errors.code ? 'border-red-500 ring-2 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
+                                } disabled:bg-slate-50 disabled:text-slate-400`}
                             value={formData.code}
-                            onChange={e => setFormData({ ...formData, code: e.target.value })}
-                            required
+                            onChange={e => {
+                                setFormData({ ...formData, code: e.target.value });
+                                if (errors.code) setErrors({ ...errors, code: '' });
+                            }}
                         />
+                        {errors.code && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium"><AlertCircle size={12} /> {errors.code}</p>}
                     </div>
 
                     <div>
@@ -71,11 +116,13 @@ const MaterialModal: React.FC<RawMaterialModalProps> = ({
                             <input
                                 type="number"
                                 disabled={isLoading}
-                                className={`w-full border-2 rounded-xl p-4 pl-12 outline-none transition-all font-bold text-lg
-                                    ${isEditing ? 'border-blue-50 focus:border-blue-500' : 'border-slate-200 focus:border-blue-500'}`}
+                                className={`w-full border-2 rounded-xl p-4 pl-12 outline-none transition-all font-bold text-lg ${errors.stockQuantity ? 'border-red-500' : 'border-slate-200 focus:border-blue-500'
+                                    }`}
                                 value={formData.stockQuantity}
-                                onChange={e => setFormData({ ...formData, stockQuantity: Number(e.target.value) })}
-                                required
+                                onChange={e => {
+                                    setFormData({ ...formData, stockQuantity: Number(e.target.value) });
+                                    if (errors.stockQuantity) setErrors({ ...errors, stockQuantity: '' });
+                                }}
                             />
                             <div className="absolute left-4 top-1/2 -translate-y-1/2">
                                 {isEditing ? (
@@ -87,16 +134,24 @@ const MaterialModal: React.FC<RawMaterialModalProps> = ({
                                 )}
                             </div>
                         </div>
-                        {isEditing && (
+                        {errors.stockQuantity && (
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium italic animate-pulse">
+                                <AlertCircle size={12} /> {errors.stockQuantity}
+                            </p>
+                        )}
+                        {isEditing && !errors.stockQuantity && (
                             <p className={`text-[11px] mt-2 font-bold px-2 py-1 rounded-md inline-block ${formData.stockQuantity >= 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
                                 {formData.stockQuantity >= 0 ? '↑ INCREASE STOCK' : '↓ DECREASE STOCK'}
                             </p>
                         )}
                     </div>
 
+                    {/* Footer Buttons */}
                     <div className="flex gap-4 pt-6">
-                        <button type="button" onClick={onClose} disabled={isLoading} className="flex-1 px-6 py-3.5 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50">Cancel</button>
-                        <button type="submit" disabled={isLoading} className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 shadow-lg flex items-center justify-center min-h-[56px]">
+                        <button type="button" onClick={onClose} disabled={isLoading} className="flex-1 px-6 py-3.5 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-all">
+                            Cancel
+                        </button>
+                        <button type="submit" disabled={isLoading} className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-500/30 flex items-center justify-center min-h-[56px] transition-all">
                             {isLoading ? <Loader2 className="animate-spin" size={24} /> : (isEditing ? 'Apply Adjustment' : 'Save Material')}
                         </button>
                     </div>
@@ -106,4 +161,4 @@ const MaterialModal: React.FC<RawMaterialModalProps> = ({
     );
 };
 
-export default MaterialModal;
+export default RawMaterialModal;

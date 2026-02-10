@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Loader2, AlertCircle } from 'lucide-react';
 import type { CreateProductRequest } from '../../types/product';
 
 interface ProductModalProps {
@@ -15,7 +15,38 @@ interface ProductModalProps {
 const ProductModal: React.FC<ProductModalProps> = ({
     isOpen, onClose, onSubmit, formData, setFormData, isEditing, isLoading
 }) => {
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+    useEffect(() => {
+        if (!isOpen) setErrors({});
+    }, [isOpen]);
+
     if (!isOpen) return null;
+
+    const validateAndSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const newErrors: { [key: string]: string } = {};
+
+        if (!formData.name.trim()) {
+            newErrors.name = "Name is required";
+        }
+
+        if (!formData.code.trim()) {
+            newErrors.code = "Code is required";
+        }
+
+        if (!formData.price || formData.price <= 0) {
+            newErrors.price = "Price must be greater than zero";
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        setErrors({});
+        onSubmit(e);
+    };
 
     return (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -33,30 +64,45 @@ const ProductModal: React.FC<ProductModalProps> = ({
                     </button>
                 </div>
 
-                <form onSubmit={onSubmit} className="p-8 space-y-5">
+                <form onSubmit={validateAndSubmit} className="p-8 space-y-5">
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Product Name</label>
                         <input
                             disabled={isLoading}
-                            className="w-full border border-slate-200 rounded-xl p-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all disabled:bg-slate-50 disabled:text-slate-400"
+                            className={`w-full border rounded-xl p-3.5 outline-none transition-all ${errors.name ? 'border-red-500 ring-4 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
+                                } disabled:bg-slate-50 disabled:text-slate-400`}
                             placeholder="e.g. Industrial Engine"
                             value={formData.name}
-                            onChange={e => setFormData({ ...formData, name: e.target.value })}
-                            required
+                            onChange={e => {
+                                setFormData({ ...formData, name: e.target.value });
+                                if (errors.name) setErrors({ ...errors, name: '' });
+                            }}
                         />
+                        {errors.name && (
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium">
+                                <AlertCircle size={12} /> {errors.name}
+                            </p>
+                        )}
                     </div>
 
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Product Code</label>
                         <input
                             disabled={isLoading || isEditing}
-                            className={`w-full border border-slate-200 rounded-xl p-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-mono text-sm ${(isLoading || isEditing) ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : ''
-                                }`}
+                            className={`w-full border rounded-xl p-3.5 outline-none transition-all font-mono text-sm ${errors.code ? 'border-red-500 ring-4 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
+                                } ${(isLoading || isEditing) ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : ''}`}
                             placeholder="e.g. ENG-001"
                             value={formData.code}
-                            onChange={e => setFormData({ ...formData, code: e.target.value })}
-                            required
+                            onChange={e => {
+                                setFormData({ ...formData, code: e.target.value });
+                                if (errors.code) setErrors({ ...errors, code: '' });
+                            }}
                         />
+                        {errors.code && !isEditing && (
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium">
+                                <AlertCircle size={12} /> {errors.code}
+                            </p>
+                        )}
                         {isEditing && (
                             <p className="text-[10px] text-slate-400 mt-1 uppercase italic font-medium">
                                 Code cannot be changed after creation
@@ -67,18 +113,26 @@ const ProductModal: React.FC<ProductModalProps> = ({
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Price (USD)</label>
                         <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">$</span>
+                            <span className={`absolute left-4 top-1/2 -translate-y-1/2 font-medium ${errors.price ? 'text-red-400' : 'text-slate-400'}`}>$</span>
                             <input
                                 type="number"
                                 step="0.01"
                                 disabled={isLoading}
-                                className="w-full border border-slate-200 rounded-xl p-3.5 pl-8 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all disabled:bg-slate-50 disabled:text-slate-400"
+                                className={`w-full border rounded-xl p-3.5 pl-8 outline-none transition-all ${errors.price ? 'border-red-500 ring-4 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
+                                    } disabled:bg-slate-50 disabled:text-slate-400`}
                                 placeholder="0.00"
                                 value={formData.price}
-                                onChange={e => setFormData({ ...formData, price: Number(e.target.value) })}
-                                required
+                                onChange={e => {
+                                    setFormData({ ...formData, price: Number(e.target.value) });
+                                    if (errors.price) setErrors({ ...errors, price: '' });
+                                }}
                             />
                         </div>
+                        {errors.price && (
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium">
+                                <AlertCircle size={12} /> {errors.price}
+                            </p>
+                        )}
                     </div>
 
                     <div className="flex gap-4 pt-6">
