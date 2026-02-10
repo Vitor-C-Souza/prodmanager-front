@@ -133,31 +133,104 @@ Configurado em:
 
 Configurado em `eslint.config.js` para manter a qualidade do código.
 
+## 🔌 Serviços de API
+
+### authService
+- `login(credentials)` - Autentica usuário e retorna token
+- `register(data)` - Registra novo usuário
+
+### productService
+- `create(product)` - Cria novo produto
+- `list()` - Obtém lista de todos os produtos
+- `update(id, product)` - Atualiza dados do produto
+- `delete(id)` - Deleta um produto
+- `addComposition(productId, material)` - Adiciona material à composição
+- `removeComposition(productId, materialId)` - Remove material da composição
+
+### rawMaterialService
+- `create(material)` - Cria novo material
+- `list()` - Obtém lista de todos os materiais
+- `update(id, material)` - Atualiza material
+- `delete(id)` - Deleta um material
+
+### productionService
+- `simulate()` - Simula cenários de produção
+- `getReport()` - Obtém relatório consolidado de produção (contagem, unidades, receita)
+
+## 📊 Tipos de Dados
+
+### Product
+```typescript
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  productRawMaterial: ProductRawMaterial[];
+}
+```
+
+### ProductionReport
+```typescript
+interface ProductionReport {
+  productsCount: number;      // Total de produtos
+  totalUnits: number;         // Total de unidades produzidas
+  totalRevenue: number;       // Receita total
+}
+```
+
+### RawMaterial
+```typescript
+interface RawMaterial {
+  id: string;
+  name: string;
+  quantity: number;
+  unit: string;
+}
+```
+
 ## 📱 Funcionalidades Principais
 
 ### Login
-- Autenticação segura
-- Validação de credenciais
-- Redirecionamento automático para dashboard
+- Autenticação segura com validação de credenciais
+- Armazenamento seguro de token no Redux
+- Redirecionamento automático para dashboard após autenticação
 
 ### Dashboard de Produção
-- Estatísticas de produção em tempo real
-- Simulação de cenários de produção
-- Cards com informações consolidadas
+- **Estatísticas em Tempo Real**: Visualização de produtos, unidades e receita total
+- **Simulação de Cenários**: Simule diferentes cenários de produção
+- **Relatórios de Produção**: Acesse dados consolidados de produtividade e receita
+- Cards informativos com métricas principais
+- Integração com dados atualizados de produtos e materiais
 
 ### Gerenciamento de Produtos
-- Listagem de todos os produtos
-- Criar novo produto
-- Editar produto existente
-- Visualizar composição do produto
-- Excluir produtos
+- **Listagem Completa**: Visualize todos os produtos cadastrados
+- **Criar Produtos**: Interface intuitiva para adicionar novos produtos
+- **Editar Produtos**: Modifique informações de produtos existentes
+- **Gerenciar Composição**: 
+  - Visualizar materiais brutos utilizados em cada produto
+  - Adicionar materiais à composição do produto
+  - Definir quantidade necessária de cada material
+  - Remover materiais da composição
+  - Modal interativo com validações em tempo real
+- **Excluir Produtos**: Remove produtos do sistema com confirmação
+- Suporte a múltiplos materiais por produto
 
 ### Gerenciamento de Materiais Brutos
-- Listagem de materiais
-- Adicionar novo material
-- Atualizar informações de material
-- Remover materiais
-- Rastreamento de disponibilidade
+- **Listagem Completa**: Visualize todos os materiais brutos disponíveis
+- **Adicionar Materiais**: Cadastre novos materiais com facilidade
+- **Atualizar Informações**: Modifique dados de materiais existentes
+- **Remover Materiais**: Delete materiais do inventário
+- **Rastreamento**: Acompanhe disponibilidade e uso em produtos
+- Validação de materiais utilizados em composições
+
+### Relatórios de Produção
+- **Dados Consolidados**: 
+  - Contagem total de produtos
+  - Total de unidades produzidas
+  - Receita total gerada
+- **Integração com Dashboard**: Dados automaticamente sincronizados
+- **Endpoint Dedicado**: `/production/report` para obtenção de relatórios
 
 ## 🤝 Contribuindo
 
