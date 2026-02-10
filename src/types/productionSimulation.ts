@@ -1,5 +1,7 @@
+import type { Product } from "./product";
+
 export interface ProductionSimulation {
-    name: string;
+    product: Product;
     maxProduction: number;
     price: number;
     multiply: number;

@@ -55,12 +55,12 @@ const ProductionDashboard: React.FC = () => {
                     simulations.map((item, index) => (
                         <ProductionCard
                             key={index}
-                            name={item.name}
-                            code="N/A"
+                            name={item.product.name}
+                            code={item.product.code}
                             unitPrice={item.price}
                             maxProduction={item.maxProduction}
                             totalRevenue={item.multiply}
-                            materials={[]}
+                            materials={item.product.productRawMaterial?.map(prm => prm.rawMaterial) || []}
                         />
                     ))
                 ) : (
