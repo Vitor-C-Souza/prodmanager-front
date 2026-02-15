@@ -37,6 +37,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                         <button
                             onClick={onConfirm}
                             disabled={isLoading}
+                            data-testid="confirm-modal-button"
                             className="flex-1 bg-red-600 text-white py-2.5 rounded-xl font-semibold hover:bg-red-700 transition-all flex items-center justify-center min-h-[44px]"
                         >
                             {isLoading ? (

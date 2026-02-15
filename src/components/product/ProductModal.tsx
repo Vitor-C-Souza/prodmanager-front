@@ -59,15 +59,17 @@ const ProductModal: React.FC<ProductModalProps> = ({
                         onClick={onClose}
                         disabled={isLoading}
                         className="text-slate-400 hover:text-slate-600 p-2 hover:bg-slate-50 rounded-full transition-all disabled:opacity-50"
+                        data-testid="close-modal-button"
                     >
                         <X size={24} />
                     </button>
                 </div>
 
-                <form onSubmit={validateAndSubmit} className="p-8 space-y-5">
+                <form onSubmit={validateAndSubmit} className="p-8 space-y-5" data-testid="product-form">
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Product Name</label>
                         <input
+                            data-testid="product-name-input"
                             disabled={isLoading}
                             className={`w-full border rounded-xl p-3.5 outline-none transition-all ${errors.name ? 'border-red-500 ring-4 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
                                 } disabled:bg-slate-50 disabled:text-slate-400`}
@@ -79,7 +81,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                             }}
                         />
                         {errors.name && (
-                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium">
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium" data-testid="error-name">
                                 <AlertCircle size={12} /> {errors.name}
                             </p>
                         )}
@@ -88,6 +90,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Product Code</label>
                         <input
+                            data-testid="product-code-input"
                             disabled={isLoading || isEditing}
                             className={`w-full border rounded-xl p-3.5 outline-none transition-all font-mono text-sm ${errors.code ? 'border-red-500 ring-4 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
                                 } ${(isLoading || isEditing) ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : ''}`}
@@ -99,7 +102,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                             }}
                         />
                         {errors.code && !isEditing && (
-                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium">
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium" data-testid="error-code">
                                 <AlertCircle size={12} /> {errors.code}
                             </p>
                         )}
@@ -115,6 +118,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                         <div className="relative">
                             <span className={`absolute left-4 top-1/2 -translate-y-1/2 font-medium ${errors.price ? 'text-red-400' : 'text-slate-400'}`}>$</span>
                             <input
+                                data-testid="product-price-input"
                                 type="number"
                                 step="0.01"
                                 disabled={isLoading}
@@ -129,7 +133,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                             />
                         </div>
                         {errors.price && (
-                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium">
+                            <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1 font-medium" data-testid="error-price">
                                 <AlertCircle size={12} /> {errors.price}
                             </p>
                         )}
@@ -141,6 +145,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                             onClick={onClose}
                             disabled={isLoading}
                             className="flex-1 px-6 py-3.5 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-all disabled:opacity-50"
+                            data-testid="cancel-modal-button"
                         >
                             Cancel
                         </button>
@@ -148,6 +153,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                             type="submit"
                             disabled={isLoading}
                             className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center min-h-[56px]"
+                            data-testid="submit-product-button"
                         >
                             {isLoading ? (
                                 <Loader2 className="animate-spin" size={24} />

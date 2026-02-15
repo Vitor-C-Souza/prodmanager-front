@@ -19,6 +19,7 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({ onAddClick, isDisabled 
 
         <button
             onClick={onAddClick}
+            data-testid="add-material-button"
             disabled={isDisabled}
             className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-8 py-4 rounded-2xl flex items-center justify-center gap-3 font-bold transition-all shadow-xl shadow-blue-500/25 active:scale-95 shrink-0"
         >

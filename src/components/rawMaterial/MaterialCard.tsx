@@ -29,12 +29,14 @@ const MaterialCard: React.FC<MaterialCardProps> = ({ material, onEdit, onDelete 
             <div className="absolute top-6 right-6 flex gap-1">
                 <button
                     onClick={onEdit}
+                    data-testid="edit-material-button"
                     className="p-2 text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
                 >
                     <Pencil size={18} />
                 </button>
                 <button
                     onClick={() => onDelete(material.id)}
+                    data-testid="delete-material-button"
                     className="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
                 >
                     <Trash2 size={18} />

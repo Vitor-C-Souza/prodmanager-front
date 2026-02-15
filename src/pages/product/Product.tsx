@@ -10,7 +10,6 @@ import { usePageTitle } from '../../hooks/usePageTitle';
 import type { RawMaterial } from '../../types/rawMaterial';
 import { rawMaterialService } from '../../service/rawMaterialService';
 import CompositionModal from '../../components/product/CompositionModal';
-// import CompositionModal from './components/CompositionModal';
 
 const Products: React.FC = () => {
     usePageTitle('Products');
@@ -49,16 +48,21 @@ const Products: React.FC = () => {
         setModals({ ...modals, form: true });
     };
 
-    const handleOpenComposition = (product: Product) => {
-        setSelectedProduct(product);
-        setModals({ ...modals, composition: true });
-    };
-
     const handleOpenEdit = (product: Product) => {
         setIsEditing(true);
         setSelectedId(product.id);
         setFormData({ name: product.name, code: product.code, price: product.price });
         setModals({ ...modals, form: true });
+    };
+
+    const handleOpenDeleteConfirm = (id: string) => {
+        setSelectedId(id);
+        setModals({ ...modals, confirm: true });
+    };
+
+    const handleOpenComposition = (product: Product) => {
+        setSelectedProduct(product);
+        setModals({ ...modals, composition: true });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -80,11 +84,10 @@ const Products: React.FC = () => {
             setIsActionLoading(true);
             await productService.deleteProduct(selectedId);
             fetchProducts();
-        } catch (error) { alert("Error deleting product."); }
-        finally {
-            setIsActionLoading(false);
             setModals({ ...modals, confirm: false });
-        }
+            setSelectedId(null);
+        } catch (error) { alert("Error deleting product."); }
+        finally { setIsActionLoading(false); }
     };
 
     return (
@@ -99,7 +102,7 @@ const Products: React.FC = () => {
                     isLoading={isLoading}
                     isActionLoading={isActionLoading}
                     onEdit={handleOpenEdit}
-                    onDelete={handleConfirmDelete}
+                    onDelete={handleOpenDeleteConfirm}
                     onManageComposition={handleOpenComposition}
                 />
             )}
@@ -108,7 +111,7 @@ const Products: React.FC = () => {
                 isOpen={modals.form}
                 isEditing={isEditing}
                 isLoading={isActionLoading}
-                onClose={() => setModals({ ...modals, form: false })}
+                onClose={() => { setModals({ ...modals, form: false }); setSelectedId(null); }}
                 onSubmit={handleSubmit}
                 formData={formData}
                 setFormData={setFormData}
@@ -117,7 +120,7 @@ const Products: React.FC = () => {
             <ConfirmModal
                 isOpen={modals.confirm}
                 isLoading={isActionLoading}
-                onClose={() => setModals({ ...modals, confirm: false })}
+                onClose={() => { setModals({ ...modals, confirm: false }); setSelectedId(null); }}
                 onConfirm={handleConfirmDelete}
                 title="Delete Product?"
                 message="This action is permanent and cannot be undone."

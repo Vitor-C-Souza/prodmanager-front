@@ -81,6 +81,7 @@ const RawMaterialModal: React.FC<RawMaterialModalProps> = ({
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Material Name</label>
                         <input
+                            data-testid="material-name-input"
                             disabled={isLoading}
                             className={`w-full border rounded-xl p-3.5 outline-none transition-all ${errors.name ? 'border-red-500 ring-2 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
                                 }`}
@@ -96,6 +97,7 @@ const RawMaterialModal: React.FC<RawMaterialModalProps> = ({
                     <div>
                         <label className="block text-sm font-bold text-slate-700 mb-2">Material Code</label>
                         <input
+                            data-testid="material-code-input"
                             disabled={isLoading || isEditing}
                             className={`w-full border rounded-xl p-3.5 font-mono text-sm outline-none transition-all ${errors.code ? 'border-red-500 ring-2 ring-red-500/10' : 'border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500'
                                 } disabled:bg-slate-50 disabled:text-slate-400`}
@@ -114,6 +116,7 @@ const RawMaterialModal: React.FC<RawMaterialModalProps> = ({
                         </label>
                         <div className="relative">
                             <input
+                                data-testid="material-stock-input"
                                 type="number"
                                 disabled={isLoading}
                                 className={`w-full border-2 rounded-xl p-4 pl-12 outline-none transition-all font-bold text-lg ${errors.stockQuantity ? 'border-red-500' : 'border-slate-200 focus:border-blue-500'
@@ -146,12 +149,11 @@ const RawMaterialModal: React.FC<RawMaterialModalProps> = ({
                         )}
                     </div>
 
-                    {/* Footer Buttons */}
                     <div className="flex gap-4 pt-6">
                         <button type="button" onClick={onClose} disabled={isLoading} className="flex-1 px-6 py-3.5 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-all">
                             Cancel
                         </button>
-                        <button type="submit" disabled={isLoading} className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-500/30 flex items-center justify-center min-h-[56px] transition-all">
+                        <button type="submit" data-testid="submit-material-button" disabled={isLoading} className="flex-1 bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-500/30 flex items-center justify-center min-h-[56px] transition-all">
                             {isLoading ? <Loader2 className="animate-spin" size={24} /> : (isEditing ? 'Apply Adjustment' : 'Save Material')}
                         </button>
                     </div>

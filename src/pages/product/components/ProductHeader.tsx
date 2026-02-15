@@ -15,6 +15,7 @@ export const ProductHeader = ({ onAddClick, isDisabled }: { onAddClick: () => vo
             onClick={onAddClick}
             disabled={isDisabled}
             className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-8 py-4 rounded-2xl flex items-center justify-center gap-3 font-bold transition-all shadow-xl shadow-blue-500/25 active:scale-95 shrink-0"
+            data-testid="add-product-button"
         >
             <div className="bg-white/20 p-1 rounded-lg">
                 <Plus size={18} strokeWidth={3} />

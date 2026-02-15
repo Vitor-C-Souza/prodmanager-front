@@ -13,22 +13,39 @@ const ProductCard: React.FC<ProductCardProps> = ({
     product, onEdit, onDelete, onManageComposition
 }) => {
     return (
-        <div className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:shadow-xl transition-all group relative">
-            <div className="flex justify-between items-start pr-24">
-                <div>
-                    <h3 className="text-xl font-black text-slate-800 capitalize truncate">{product.name}</h3>
-                    <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest mt-1">ID: {product.code}</p>
+        <div className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:shadow-xl transition-all group">
+            <div className="flex justify-between items-start gap-4">
+                <div className="min-w-0 flex-1">
+                    <h3 className="text-xl font-black text-slate-800 capitalize leading-tight break-words">
+                        {product.name}
+                    </h3>
+                    <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest mt-1">
+                        ID: {product.code}
+                    </p>
                 </div>
 
-                {/* Ações fixas no canto superior direito para evitar desalinhamento */}
-                <div className="absolute top-6 right-6 flex gap-1">
-                    <button onClick={() => onManageComposition(product)} className="p-2 text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all" title="Manage Composition">
+                <div className="flex gap-1 shrink-0">
+                    <button
+                        onClick={() => onManageComposition(product)}
+                        className="p-2 text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+                        title="Manage Composition"
+                    >
                         <Settings size={18} />
                     </button>
-                    <button onClick={onEdit} className="p-2 text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all" title="Edit Product">
+                    <button
+                        onClick={onEdit}
+                        className="p-2 text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+                        title="Edit Product"
+                        data-testid="edit-button"
+                    >
                         <Pencil size={18} />
                     </button>
-                    <button onClick={() => onDelete(product.id)} className="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all" title="Delete Product">
+                    <button
+                        onClick={() => onDelete(product.id)}
+                        data-testid="delete-button"
+                        className="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                        title="Delete Product"
+                    >
                         <Trash2 size={18} />
                     </button>
                 </div>
