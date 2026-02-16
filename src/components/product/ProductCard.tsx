@@ -27,6 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <div className="flex gap-1 shrink-0">
                     <button
                         onClick={() => onManageComposition(product)}
+                        data-testid="composition-button"
                         className="p-2 text-slate-300 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
                         title="Manage Composition"
                     >

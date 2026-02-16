@@ -85,7 +85,6 @@ const CompositionModal: React.FC<Props> = ({
                         )}
 
                         <section className="space-y-5 bg-slate-50/50 p-5 rounded-3xl border border-slate-100">
-                            {/* ... (grid de inputs material/quantity) ... */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-1.5">
                                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Material</label>

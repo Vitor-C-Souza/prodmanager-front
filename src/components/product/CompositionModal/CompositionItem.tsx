@@ -27,6 +27,7 @@ export const CompositionItem = ({ item, onRemove, isSubmitting }: Props) => (
             onClick={() => onRemove(item.rawMaterial.id)}
             disabled={isSubmitting}
             className="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all shrink-0"
+            data-testid="remove-composition-item-button"
         >
             {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <Trash2 size={18} />}
         </button>

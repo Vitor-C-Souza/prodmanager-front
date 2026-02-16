@@ -15,6 +15,7 @@ export const ModalHeader = ({ title, subtitle, onClose }: Props) => (
         <button
             onClick={onClose}
             className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400"
+            data-testid="close-modal-button"
         >
             <X size={20} />
         </button>
