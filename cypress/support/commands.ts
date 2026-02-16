@@ -46,7 +46,7 @@ Cypress.Commands.add('login', (email, password) => {
         if (token) {
             localStorage.setItem('token', token);
         } else {
-            throw new Error("Token não encontrado na resposta do servidor");
+            throw new Error("token not found in response");
         }
     });
 });
