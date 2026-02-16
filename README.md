@@ -65,6 +65,47 @@ npm run preview
 npm run lint
 ```
 
+## 🧪 End-to-end tests (Cypress)
+
+- Location: `cypress/e2e/`
+- Run all tests (headless): `npm run test`
+- Open Cypress (interactive): `npm run cypress:open`
+- Run a single spec: `npx cypress run --spec "cypress/e2e/products.cy.ts"`
+
+Test scenarios (by spec file):
+
+- `cypress/e2e/auth.cy.ts` — Authentication
+  - validation errors for empty fields
+  - login failure with incorrect credentials
+  - redirect unauthenticated users to `/login`
+  - logout clears token and redirects
+  - loading state during login (slow response stub)
+
+- `cypress/e2e/navigation.cy.ts` — Navigation & layout
+  - navbar navigation (Materials, Products, Dashboard)
+  - logout from navbar
+
+- `cypress/e2e/products.cy.ts` — Product management
+  - validation on create
+  - create product
+  - update product name & price
+  - delete product
+
+- `cypress/e2e/raw-materials.cy.ts` — Raw materials management
+  - validation on create
+  - create raw material
+  - update name and adjust stock
+  - delete material
+
+- `cypress/e2e/product-raw-material.cy.ts` — Product ↔ Raw Material (composition)
+  - create material and product, link material to product composition
+  - remove linked material from composition
+  - test cleanup removes created records
+
+Notes:
+- Tests use a custom `cy.login()` command (see `cypress/support/commands.ts`) which sends a real POST to `http://localhost:8080/api/v1/auth/login` — ensure the API is available or adapt the command for stubbing.
+- Several specs intercept API requests (request aliases) — they work with a running backend or with the network stubbed by Cypress.
+
 ## 📁 Project Structure
 
 ```
